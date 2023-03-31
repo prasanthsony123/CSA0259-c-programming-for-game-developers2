@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+struct Student {
+    char name[50];
+    int roll_number;
+    struct tm birthday;
+    struct tm admission_date;
+};
+
+int main() {
+    struct Student student;
+
+    printf("Enter name: ");
+    scanf("%s", student.name);
+
+    printf("Enter roll number: ");
+    scanf("%d", &student.roll_number);
+
+    printf("Enter birthday in DD/MM/YYYY format: ");
+    scanf("%d/%d/%d", &student.birthday.tm_mday, &student.birthday.tm_mon, &student.birthday.tm_year);
+    student.birthday.tm_mon -= 1; 
+    student.birthday.tm_year -= 1900; 
+
+    printf("Enter admission date in DD/MM/YYYY format: ");
+    scanf("%d/%d/%d", &student.admission_date.tm_mday, &student.admission_date.tm_mon, &student.admission_date.tm_year);
+    student.admission_date.tm_mon -= 1; 
+    student.admission_date.tm_year -= 1900; 
+    time_t birthday_time = mktime(&student.birthday);
+    time_t admission_time = mktime(&student.admission_date);
+    double age_in_seconds = difftime(admission_time, birthday_time);
+    int age_in_years = (int)(age_in_seconds / (365.25 * 24 * 60 * 60));
+
+    printf("\nName: %s\n", student.name);
+    printf("Roll number: %d\n", student.roll_number);
+    printf("Birthday: %d/%d/%d\n", student.birthday.tm_mday, student.birthday.tm_mon + 1, student.birthday.tm_year + 1900);
+    printf("Admission date: %d/%d/%d\n", student.admission_date.tm_mday, student.admission_date.tm_mon + 1, student.admission_date.tm_year + 1900);
+    printf("Age at time of admission: %d years\n", age_in_years);
+
+    return 0;
+}
