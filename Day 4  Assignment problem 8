@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+union Data {
+    int integer;
+    float decimal;
+};
+
+int main() {
+    union Data data;
+    int choice;
+
+    printf("Enter your choice:\n");
+    printf("1. Integer\n");
+    printf("2. Decimal\n");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Enter an integer value: ");
+        scanf("%d", &data.integer);
+        printf("You entered: %d\n", data.integer);
+    } else if (choice == 2) {
+        printf("Enter a decimal value: ");
+        scanf("%f", &data.decimal);
+        printf("You entered: %f\n", data.decimal);
+    } else {
+        printf("Invalid choice\n");
+    }
+
+    return 0;
+}
