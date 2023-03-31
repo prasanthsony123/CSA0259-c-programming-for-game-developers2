@@ -1,0 +1,33 @@
+import math
+
+# Define a union shape
+class Shape:
+    def __init__(self, shape_type, radius=None, length=None, width=None):
+        self.shape_type = shape_type
+        if shape_type == "circle":
+            self.radius = radius
+        elif shape_type == "rectangle":
+            self.length = length
+            self.width = width
+
+    def area(self):
+        if self.shape_type == "circle":
+            return math.pi * self.radius ** 2
+        elif self.shape_type == "rectangle":
+            return self.length * self.width
+
+# Prompt the user to enter the type of shape they want to calculate
+shape_type = input("Enter shape type (circle or rectangle): ")
+
+# Prompt the user to enter the appropriate dimensions
+if shape_type == "circle":
+    radius = float(input("Enter radius: "))
+    shape = Shape(shape_type, radius=radius)
+elif shape_type == "rectangle":
+    length = float(input("Enter length: "))
+    width = float(input("Enter width: "))
+    shape = Shape(shape_type, length=length, width=width)
+
+# Calculate and print the area of the shape
+area = shape.area()
+print(f"The area of the {shape_type} is {area:.2f}")
