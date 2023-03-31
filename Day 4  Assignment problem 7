@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Structure definition for student
+struct student {
+    int roll_no;
+    char stud_name[50];
+    float mark1, mark2, mark3;
+    float total_marks;
+    float average_marks;
+};
+
+// Function to sort records in descending order of marks
+void sort_records(struct student *students, int num_students) {
+    struct student temp;
+    for(int i=0; i<num_students; i++) {
+        for(int j=i+1; j<num_students; j++) {
+            if(students[i].total_marks < students[j].total_marks) {
+                temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int num_students;
+    printf("Enter the number of students: ");
+    scanf("%d", &num_students);
+
+    // Dynamic memory allocation for the array of student structures
+    struct student *students = (struct student*) malloc(num_students * sizeof(struct student));
+
+    // Input details for each student
+    for(int i=0; i<num_students; i++) {
+        printf("\nEnter details for student %d:\n", i+1);
+        printf("Roll No: ");
+        scanf("%d", &students[i].roll_no);
+        printf("Name: ");
+        scanf("%s", students[i].stud_name);
+        printf("Mark 1: ");
+        scanf("%f", &students[i].mark1);
+        printf("Mark 2: ");
+        scanf("%f", &students[i].mark2);
+        printf("Mark 3: ");
+        scanf("%f", &students[i].mark3);
+
+        // Calculate total and average marks
+        students[i].total_marks = students[i].mark1 + students[i].mark2 + students[i].mark3;
+        students[i].average_marks = students[i].total_marks / 3;
+    }
+
+    // Sort records in descending order of marks
+    sort_records(students, num_students);
+
+    // Display the records
+    printf("\n\nStudent Records (in descending order of marks):\n\n");
+    printf("Roll No\tName\t\tTotal Marks\tAverage Marks\n");
+    for(int i=0; i<num_students; i++) {
+        printf("%d\t%s\t\t%.2f\t\t%.2f\n", students[i].roll_no, students[i].stud_name, students[i].total_marks, students[i].average_marks);
+    }
+
+    // Free the dynamically allocated memory
+    free(students);
+
+    return 0;
+}
